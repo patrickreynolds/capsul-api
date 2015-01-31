@@ -1,0 +1,17 @@
+{
+  "name": "capsul-api",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app.js",
+    "restart": "nodemon app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.10.2",
+    "dotenv": "^0.4.0",
+    "errorhandler": "^1.3.2",
+    "express": "^4.11.1",
+    "mongoose": "^3.8.22",
+    "nodemon": "^1.3.5"
+  }
+}
