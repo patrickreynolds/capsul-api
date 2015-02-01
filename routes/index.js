@@ -48,4 +48,6 @@ module.exports = function(app){
     app.get('/login', auth.login);
     
     // GET /signup
+    app.post('/signup', auth.signup);
+    
 };
