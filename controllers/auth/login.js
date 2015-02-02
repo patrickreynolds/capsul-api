@@ -3,8 +3,8 @@ var User = require('../../models/user')
 
 // Exporting via the module pattern.
 module.exports = function(req, res, next) {
-    var username = req.body.username;
-    var password = req.body.password;
+    var username = req.params.username;
+    var password = req.params.password;
 
     // Query MongoDB tasks by id
     User.findOne({"username": username}, function(err, retrievedUser) {
