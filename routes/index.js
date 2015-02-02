@@ -45,9 +45,9 @@ module.exports = function(app){
 
     // Auth
     // GET /login
-    app.get('/login', auth.login);
+    app.post('/login', auth.login);
     
     // GET /signup
     app.post('/signup', auth.signup);
-    
+
 };
