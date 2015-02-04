@@ -23,7 +23,7 @@ module.exports = function(req, res, next) {
                 error: err
             })
         } else {
-            console.log("Created User: " + newUser.username);
+            console.log("Created User: " + user);
             res.json({
                 status: 200,
                 user: user
