@@ -7,14 +7,18 @@ module.exports = function(req, res, next) {
     var password = req.body.password;
 
     // Query MongoDB tasks by id
-    User.findOne({"username": username}, function(err, retrievedUser) {
-        if (err) res.json(err)
-        if (retrievedUser) {
-            if (retrievedUser.get('password', String) === password) {
+    User.findOne({username: username}, function(err, user) {
+        if (err) {
+            res.json({
+                status: 400,
+                error: err
+            })
+        } else if (user) {
+            if (user.get('password', String) === password) {
                 console.log("\nAuthenticating User: " + username + "\n")
                 res.json({
                     status: 200,
-                    user: retrievedUser
+                    user: user
                 });
             } else {
                 res.json({
