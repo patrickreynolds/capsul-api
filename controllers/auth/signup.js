@@ -13,19 +13,20 @@ module.exports = function(req, res, next) {
             createdAt: Date.now()
         }
 
-        // Inserting a new task into MongoDB
+        // Inserting a new user into MongoDB
         // via Mongoose create method.
-        User.create(newUser, function(err) {
+        User.create(newUser, function(err, user) {
             if (err) { 
                 res.json({
                     status: 400,
                     error: err
                 })
             } else {
-                console.log("Created User: " + newUser.username);
+                console.log("Created User: " + user);
                 res.json({
                     status: 200,
-                    user: newUser
+                    user: user,
+                    userId: user.get('_id')
                 })
             }
         })
