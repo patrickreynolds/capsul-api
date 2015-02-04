@@ -15,7 +15,7 @@ module.exports = function(req, res, next) {
             user.password  = req.body.password  || user.get('password')
             user.firstName = req.body.firstName || user.get('firstName')
             user.lastName = req.body.lastName   || user.get('lastName')
-            user.instagramAccessToken = req.instagramAccessToken || user.get('instagramAccessToken')
+            user.instagramAccessToken = req.body.instagramAccessToken || user.get('instagramAccessToken')
             user.updatedAt = Date.now()
 
             user.save(function(err){
