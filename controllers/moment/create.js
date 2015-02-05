@@ -19,7 +19,7 @@ module.exports = function(req, res, next) {
                 error: err
             })
         } else {
-            user.moments.push(moment)
+            user.moments = user.get('moments').push(moment)
             res.json({
                 status: 200,
                 moments: user.get('moments')
