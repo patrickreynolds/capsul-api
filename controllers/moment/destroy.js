@@ -11,12 +11,21 @@ module.exports = function(req, res, next) {
             })
         } else {
             user.moments = user.get('moments').filter(function(moment) {
-                return moment.timestamp !== req.body.moment.timestamp
+                return moment["_id"] != req.body.moment["_id"]
             })
-            res.json({
-                status: 200,
-                userId: user.get('_id'),
-                moments: user.get('moments')
+            User.findByIdAndUpdate(req.params.userId, {"moments": user.moments}, function(err) {
+                if (err) { 
+                    res.json({
+                        status: 400,
+                        error: err
+                    })
+                } else {
+                    res.json({
+                        status: 200,
+                        userId: user.get('_id'),
+                        moments: user.get('moments')
+                    })
+                }
             })
         }
     })

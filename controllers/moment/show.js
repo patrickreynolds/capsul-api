@@ -11,17 +11,22 @@ module.exports = function(req, res, next) {
               error: "No user found with id: " + id 
             })
         } else {
-            if (user) {
-                console.log("\nRetrieving User: " + user.username + "\n")
+            var foundMoment;
+            user.get('moments').forEach(function(moment) {
+                if (moment._id.toHexString() === req.params.momentId) {
+                    foundMoment = moment;
+                }
+            })
+            if (foundMoment) {
                 res.json({
                     status: 200,
                     userId: user.get('_id'),
-                    moments: user.get('moments')
+                    moment: foundMoment
                 })
             } else {
                 res.json({
                     status: 400,
-                    error: "No user found with id: " + id 
+                    error: "No moment found with id: " + req.params.momentId
                 })
             }
         }

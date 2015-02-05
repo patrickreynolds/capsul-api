@@ -4,10 +4,10 @@ var User = require('../../models/user')
 // Exporting via the module pattern.
 module.exports = function(req, res, next) {
     var moment = {
-        name: req.body.name,
-        lat: req.body.latitude,
-        lng: req.body.longitude,
-        timestamp: req.body.timestamp
+        name: req.body.moment.name,
+        lat: req.body.moment.latitude,
+        lng: req.body.moment.longitude,
+        timestamp: req.body.moment.timestamp
     }
 
     // Inserting a new task into MongoDB
@@ -19,10 +19,23 @@ module.exports = function(req, res, next) {
                 error: err
             })
         } else {
+            if (!user.get('moments')) {
+                user.moments = []
+            }
             user.moments = user.get('moments').push(moment)
-            res.json({
-                status: 200,
-                moments: user.get('moments')
+            User.findByIdAndUpdate(req.params.userId, {"moments": user.moments}, function(err) {
+                if (err) { 
+                    res.json({
+                        status: 400,
+                        error: err
+                    })
+                } else {
+                    res.json({
+                        status: 200,
+                        userId: user.get('_id'),
+                        moments: user.get('moments')
+                    })
+                }
             })
         }
     })

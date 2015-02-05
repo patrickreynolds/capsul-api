@@ -38,10 +38,10 @@ module.exports = function(app){
     app.get('/users/:userId/moments/:momentId', moments.show);
 
     // // GET /users/:userId/moments/:momentId
-    app.put('/users/:userId/moments/:momentId', moments.update);
+    app.put('/users/:userId/moments', moments.update);
 
     // // GET /users/:userId/moments/:momentId
-    app.delete('/users/:userId/moments/:momentId', moments.destroy);
+    app.delete('/users/:userId/moments', moments.destroy);
 
     // Auth
     // GET /login
