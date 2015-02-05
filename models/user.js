@@ -17,6 +17,12 @@ var userSchema = new Schema({
   lastName: {
     type: String
   },
+  moments: [{
+    name: String,
+    lat: Number,
+    lng: Number,
+    timestamp: Number
+  }],
   instagramAccessToken: {
     type: String
   },

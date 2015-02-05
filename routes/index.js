@@ -1,7 +1,7 @@
 var controller = require('../controllers'),
     users      = controller.users,
-    auth       = controller.auth
-    // locations  = controller.locations; 
+    auth       = controller.auth,
+    moments    = controller.moments; 
 
 module.exports = function(app){
 
@@ -27,21 +27,21 @@ module.exports = function(app){
     app.delete('/users/:id', users.destroy);
 
 
-    // Locations
-    // GET /users/:id/locations
-    // app.get('/users/:id/locations', locations.all);
+    // Moments
+    // GET /users/:id/moments
+    app.get('/users/:userId/moments', moments.all);
 
-    // // POST /users/:id/locations
-    // app.post('/users/:id/locations', locations.create);
+    // // POST /users/:userId/moments
+    app.post('/users/:userId/moments', moments.create);
 
-    // // GET /users/:id/locations/:id
-    // app.get('/users/:id/locations/:id', locationsshow);
+    // // GET /users/:userId/moments/:momentId
+    app.get('/users/:userId/moments/:momentId', moments.show);
 
-    // // GET /users/:id/locations/:id
-    // app.put('/users/:id/locations/:id', locations.update);
+    // // GET /users/:userId/moments/:momentId
+    app.put('/users/:userId/moments/:momentId', moments.update);
 
-    // // GET /users/:id/locations/:id
-    // app.delete('/users/:id/locations/:id', locations.delete);
+    // // GET /users/:userId/moments/:momentId
+    app.delete('/users/:userId/moments/:momentId', moments.destroy);
 
     // Auth
     // GET /login

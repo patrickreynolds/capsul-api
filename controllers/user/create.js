@@ -12,6 +12,7 @@ module.exports = function(req, res, next) {
     newUser.lastName  = req.body.lastName
     newUser.updatedAt =  Date.now()
     newUser.createdAt =  Date.now()
+    newUser.moments   = []
     newUser.instagramAccessToken = req.instagramAccessToken
 
     // Inserting a new task into MongoDB
