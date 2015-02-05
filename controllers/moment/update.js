@@ -13,10 +13,10 @@ module.exports = function(req, res, next) {
         } else {
             user.moments = user.get('moments').map(function(moment) {
                 if (moment._id.toHexString() === req.body.moment._id) {
-                    moment.name = req.body.moment.name
-                    moment.lat  = req.body.moment.latitude
-                    moment.lng  = req.body.moment.longitude
-                    moment.timestamp = req.body.moment.timestamp
+                    moment.name = parseFloat(req.body.moment.name)
+                    moment.lat  = parseFloat(req.body.moment.latitude)
+                    moment.lng  = parseFloat(req.body.moment.longitude)
+                    moment.timestamp = parseFloat(req.body.moment.timestamp)
                     return moment
                 } else
                     return moment

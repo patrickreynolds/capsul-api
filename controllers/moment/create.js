@@ -5,9 +5,9 @@ var User = require('../../models/user')
 module.exports = function(req, res, next) {
     var moment = {
         name: req.body.moment.name,
-        lat: req.body.moment.latitude,
-        lng: req.body.moment.longitude,
-        timestamp: req.body.moment.timestamp
+        lat: parseFloat(req.body.moment.latitude),
+        lng: parseFloat(req.body.moment.longitude),
+        timestamp: parseFloat(req.body.moment.timestamp)
     }
 
     // Inserting a new task into MongoDB
