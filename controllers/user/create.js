@@ -6,14 +6,14 @@ module.exports = function(req, res, next) {
     var newUser = {
     }
 
+    console.log(req.body)
+    console.log(req.params)
+
     newUser.username  = req.body.username
     newUser.password  = req.body.password
-    newUser.firstName = req.body.firstName
-    newUser.lastName  = req.body.lastName
     newUser.updatedAt =  Date.now()
     newUser.createdAt =  Date.now()
-    newUser.moments   = []
-    newUser.instagramAccessToken = req.instagramAccessToken
+    newUser.instagramAccessToken = req.body.instagramAccessToken
 
     // Inserting a new task into MongoDB
     // via Mongoose create method.

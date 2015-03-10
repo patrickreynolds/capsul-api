@@ -1,42 +1,41 @@
-// Using Mongoose User model schema
-var User = require('../../models/user')
+// Using Mongoose Moment model schema
+var Moment = require('../../models/moment')
 
 // Exporting via the module pattern.
 module.exports = function(req, res, next) {
     var moment = {
-        name: req.body.moment.name,
-        lat: parseFloat(req.body.moment.latitude),
-        lng: parseFloat(req.body.moment.longitude),
-        timestamp: parseFloat(req.body.moment.timestamp)
+        name:        req.body.moment.name,
+        latitude:    req.body.moment.latitude,
+        longitude:   req.body.moment.longitude,
+        timestamp:   req.body.moment.timestamp,
+        radius:      req.body.moment.radius,
+        description: req.body.moment.description,
+        createdAt:   Date.now(),
+        updatedAt:   Date.now(),
+        user:        req.params.userId
     }
 
     // Inserting a new task into MongoDB
     // via Mongoose create method.
-    User.findById(req.params.userId, function(err, user) {
+    Moment.create(moment, function(err, moment) {
         if (err) { 
             res.json({
                 status: 400,
                 error: err
             })
         } else {
-            if (!user.get('moments')) {
-                user.moments = []
+            if (err) { 
+                res.json({
+                    status: 400,
+                    error: err
+                })
+            } else {
+                res.json({
+                    status: 200,
+                    userId: req.params.userId,
+                    moment: moment
+                })
             }
-            user.moments = user.get('moments').push(moment)
-            User.findByIdAndUpdate(req.params.userId, {"moments": user.moments}, function(err) {
-                if (err) { 
-                    res.json({
-                        status: 400,
-                        error: err
-                    })
-                } else {
-                    res.json({
-                        status: 200,
-                        userId: user.get('_id'),
-                        moments: user.get('moments')
-                    })
-                }
-            })
         }
     })
 }

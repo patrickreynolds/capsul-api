@@ -1,40 +1,31 @@
 // Using Mongoose User model schema
-var User = require('../../models/user')
+var Moment = require('../../models/moment')
 
 // Exporting via the module pattern.
 module.exports = function(req, res, next) {
-    // Query MongoDB users by id
-    User.findById(req.params.userId, function(err, user) {
-        if (err) {
-            res.json({
-                status: 400,
-                error: err
-            })
-        } else {
-            user.moments = user.get('moments').map(function(moment) {
-                if (moment._id.toHexString() === req.body.moment._id) {
-                    moment.name = parseFloat(req.body.moment.name)
-                    moment.lat  = parseFloat(req.body.moment.latitude)
-                    moment.lng  = parseFloat(req.body.moment.longitude)
-                    moment.timestamp = parseFloat(req.body.moment.timestamp)
-                    return moment
-                } else
-                    return moment
-            })
-            User.findByIdAndUpdate(req.params.userId, {"moments": user.moments}, function(err) {
-                if (err) { 
-                    res.json({
-                        status: 400,
-                        error: err
-                    })
-                } else {
-                    res.json({
-                        status: 200,
-                        userId: user.get('_id'),
-                        moments: user.get('moments')
-                    })
-                }
-            })
-        }
+    // Query MongoDB moment by id
+    Moment.findById(req.params.momentId, function(err, moment) {
+
+        moment.name        = req.body.moment.name
+        moment.latitude    = req.body.moment.latitude
+        moment.lng         = req.body.moment.longitude
+        moment.radius      = req.body.moment.radius
+        moment.timestamp   = req.body.moment.timestamp
+        moment.description = req.body.moment.description
+        updatedAt          = Date.now()
+        user               = req.params.userId
+
+        moment.save(function(err){
+            if (err) {
+                res.json({
+                    status: 400,
+                    error: err
+                })
+            } else {
+                res.json({
+                    status: 200
+                })
+            }
+        })
     })
 }
