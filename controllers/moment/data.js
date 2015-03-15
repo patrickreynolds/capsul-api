@@ -5,10 +5,8 @@ var Moment  = require('../../models/moment'),
 
 // Exporting via the module pattern.
 module.exports = function (req, res, next) {
-  
     if (req.params.userId) {
         var userId = req.params.userId;
-
         User.findById(userId, function(err, user) {
             if (err) {
                 res.send({
@@ -21,13 +19,12 @@ module.exports = function (req, res, next) {
                     error: "No user found for id: " + req.params.userId
                 })
             } else {
-                console.log(req)
                 var mediaRequest = "https://api.instagram.com/v1/media/search?" + 
                     "lat=" + req.query.latitude +
                     "&lng=" + req.query.longitude +  
                     "&max_timestamp=" + req.query.timestamp +
                     "&distance=" + req.query.radius + 
-                    "&access_token=" + user.get('instagramAccessToken')
+                    "&access_token=" + user.get('accessToken')
                 request(mediaRequest, function(err, response, body){
                     if (err) {
                         res.json({
@@ -38,7 +35,7 @@ module.exports = function (req, res, next) {
                         res.json({
                             status: 200,
                             userId: userId,
-                            data: body
+                            data: JSON.parse(body).data
                         })
                     }
                 })

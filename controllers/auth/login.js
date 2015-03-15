@@ -3,36 +3,29 @@ var User = require('../../models/user')
 
 // Exporting via the module pattern.
 module.exports = function(req, res, next) {
-    var username = req.body.username;
-    var password = req.body.password;
-
+    var id = req.body.id;
+    console.log(id)
     // Query MongoDB tasks by id
-    User.findOne({username: username}, function(err, user) {
+    User.findOne({id: id}, function(err, user) {
         if (err) {
             res.json({
                 status: 400,
                 error: err
             })
-        } else if (user) {
-            if (user.get('password', String) === password) {
-                console.log("\nAuthenticating User: " + username + "\n")
-                res.json({
-                    status: 200,
-                    user: user
-                });
-            } else {
-                res.json({
-                    status: 400,
-                    field: "password",
-                    error: "Invalid password for username: " + username 
-                })
-            }
-        } else {
+        } if (!user) {
+            console.log(user)
+            console.log("\nCan't Authenticate User: " + id + "\n")
             res.json({
                 status: 400,
-                field: "username",
-                error: "No user found with username: " + username 
-            })
+                error: "No user found with instagramID: " + id
+            });
+        } else {
+            console.log("\nAuthenticating User: " + id + "\n")
+            console.log(JSON.parse(user))
+            res.json({
+                status: 200,
+                user: user
+            });
         }
     })
 }

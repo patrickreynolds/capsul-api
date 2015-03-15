@@ -3,15 +3,18 @@ var User = require('../../models/user')
 
 // Exporting via the module pattern.
 module.exports = function(req, res, next) {
-    if (req.body.username !== "" && req.body.password !== "") {
+    if (req.body.id !== "" || req.body.username !== "") {
         var newUser = {
-            username:  req.body.username,
-            password:  req.body.password,
-            firstName: req.body.firstName || "",
-            lastName: req.body.lastName || "",
-            updatedAt: Date.now(),
-            createdAt: Date.now()
+            id:             req.body.id,
+            username:       req.body.username,
+            fullName:       req.body.full_name || "",
+            profilePicture: req.body.profile_picture || "",
+            accessToken:    req.body.access_token,
+            updatedAt:      Date.now(),
+            createdAt:      Date.now()
         }
+
+        console.log(JSON.stringify(newUser))
 
         // Inserting a new user into MongoDB
         // via Mongoose create method.
@@ -25,22 +28,21 @@ module.exports = function(req, res, next) {
                 console.log("Created User: " + user);
                 res.json({
                     status: 200,
-                    user: user,
-                    userId: user.get('_id')
+                    user: user
                 })
             }
+        })
+    } else if (req.body.id === "") {
+        res.json({
+            status: 400,
+            field: "id",
+            error: "No id was provided"
         })
     } else if (req.body.username === "") {
         res.json({
             status: 400,
             field: "username",
             error: "No username was provided"
-        })
-    } else if (req.body.password === "") {
-        res.json({
-            status: 400,
-            field: "password",
-            error: "No password was provided"
         })
     }
 }

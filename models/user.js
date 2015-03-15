@@ -2,23 +2,30 @@ var mongoose = require('mongoose');
 var Schema   = mongoose.Schema;
 
 var userSchema = new Schema({
+  id: {
+    type: String,
+    unique: true,
+    required: true
+  },
   username: {
     type: String,
     unique: true,
     required: true
   },
-  password: {
+  fullName: {
     type: String,
-    required: true
   },
-  instagramAccessToken: {
+  profilePicture: {
+    type: String
+  },
+  accessToken: {
     type: String
   },
   updatedAt: {
-    type: Number
+    type: String
   },
   createdAt: {
-    type: Number
+    type: String
   }
 });
 

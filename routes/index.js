@@ -40,7 +40,7 @@ module.exports = function(app){
 
     // GET /users/:userId/location
     // expects latitude, longitude, timestamp, radius
-    app.get('/users/:userId/moments/data',  moments.data);
+    app.get('/users/:userId/moments/data',            moments.data);
 
     // // GET /users/:userId/moments/:momentId
     app.get('/users/:userId/moments/:momentId',       moments.show);
