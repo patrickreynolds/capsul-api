@@ -23,11 +23,10 @@ module.exports = function(req, res, next) {
                             error: "Error reading moments for user with id: " + id 
                         })        
                     } else {
-                        user.moments = moments;
-                        user.test = "test"
                         res.json({
                             status: 200,
-                            user: user
+                            user: user,
+                            moments: moments
                         })
                     }
                 })
