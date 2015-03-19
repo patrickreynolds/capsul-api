@@ -15,15 +15,11 @@ var Moment = new Schema({
     required: true
   },
   timestamp: {
-    type:     Number,
-    required:  true
+    type:     Number
   },
   radius: {
     type:     Number,
     required: true
-  },
-  description: {
-    type:     String
   },
   createdAt: {
     type:     String,

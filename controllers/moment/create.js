@@ -7,9 +7,8 @@ module.exports = function(req, res, next) {
         name:        req.body.moment.name,
         latitude:    req.body.moment.latitude,
         longitude:   req.body.moment.longitude,
-        timestamp:   req.body.moment.timestamp,
+        timestamp:   Date.now(),
         radius:      req.body.moment.radius,
-        description: req.body.moment.description,
         createdAt:   Date.now(),
         updatedAt:   Date.now(),
         user:        req.params.userId
