@@ -21,7 +21,7 @@ module.exports = function(req, res, next) {
             });
         } else {
             console.log("\nAuthenticating User: " + id + "\n")
-            console.log(JSON.parse(user))
+            console.log(user)
             res.json({
                 status: 200,
                 user: user
