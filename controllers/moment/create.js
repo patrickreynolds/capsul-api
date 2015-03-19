@@ -4,11 +4,11 @@ var Moment = require('../../models/moment')
 // Exporting via the module pattern.
 module.exports = function(req, res, next) {
     var moment = {
-        name:        req.body.moment.name,
-        latitude:    req.body.moment.latitude,
-        longitude:   req.body.moment.longitude,
+        name:        req.body.name,
+        latitude:    req.body.latitude,
+        longitude:   req.body.longitude,
         timestamp:   Date.now(),
-        radius:      req.body.moment.radius,
+        radius:      req.body.radius,
         createdAt:   Date.now(),
         updatedAt:   Date.now(),
         user:        req.params.userId
